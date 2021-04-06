@@ -1,4 +1,8 @@
-version: '3.3'
+version: '3.8'
+
+networks:
+  default:
+    driver: overlay
 
 services:
 
@@ -22,9 +26,7 @@ services:
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
       # Force publishing on the 'elk' overlay.
-      network.publish_host: _eth0_
-    networks:
-      - elk
+      ##network.publish_host: _eth0_
     deploy:
       mode: replicated
       replicas: 1
@@ -45,8 +47,6 @@ services:
         target: /usr/share/logstash/config/elasticsearch-ca.pem
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
-    networks:
-      - elk
     deploy:
       mode: replicated
       replicas: 1
@@ -61,8 +61,6 @@ services:
       # (!) CA certificate. Generate using instructions from tls/README.md.
       - source: elasticsearch_ca_cert
         target: /usr/share/kibana/config/elasticsearch-ca.pem
-    networks:
-      - elk
     deploy:
       mode: replicated
       replicas: 1
@@ -84,6 +82,4 @@ configs:
   elasticsearch_ca_cert:
     file: ./tls/kibana/elasticsearch-ca.pem
 
-networks:
-  elk:
-    driver: overlay
+
