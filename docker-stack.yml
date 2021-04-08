@@ -76,7 +76,7 @@ configs:
   kibana_config:
     file: ./kibana/config/kibana.yml
   elasticsearch_transport_cert:
-    file: ./tls/elasticsearch/http.p12
+    file: ./tls/elasticsearch/elasticsearch.p12
   elasticsearch_http_cert:
     file: ./tls/elasticsearch/http.p12
   elasticsearch_ca_cert:
