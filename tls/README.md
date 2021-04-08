@@ -20,6 +20,7 @@ $ docker run -it \
   bin/elasticsearch-certutil cert \
     --days 3650 \
     --keep-ca-key \
+    --keysize 1024 \
     --in tls/instances.yml \
     --out tls/certificate-bundle.zip
 ```
@@ -96,22 +97,52 @@ here are the values that were used to create the pre-generated certificates from
 **:warning: `<none>` indicates that the value is to be left empty.**
 
 ```none
-Generate a CSR? [y/N] n
-Use an existing CA? [y/N] y
+## Elasticsearch HTTP Certificate Utility
+## Do you wish to generate a Certificate Signing Request (CSR)?
+Generate a CSR? [y/N]
+## Do you have an existing Certificate Authority (CA) key-pair that you wish to use to sign your certificate?
+Use an existing CA? [y/N]y
+## What is the path to your CA?
 CA Path: /usr/share/elasticsearch/tls/ca/ca.p12
-Password for ca.p12: <none>
+Password for ca.p12:
+## How long should your certificates be valid?
 For how long should your certificate be valid? [5y] 10y
-Generate a certificate per node? [y/N] n
-(Enter all the hostnames that you need, one per line.)
+## Do you wish to generate one certificate per node?
+Generate a certificate per node? [y/N]
+## Which hostnames will be used to connect to your nodes?
 elasticsearch
 localhost
-Is this correct [Y/n] y
-(Enter all the IP addresses that you need, one per line.)
-<none>
-Is this correct [Y/n] y
-Do you wish to change any of these options? [y/N] n
-Provide a password for the "http.p12" file: <none>
-What filename should be used for the output zip file? tls/elasticsearch-ssl-http.zip
+
+You entered the following hostnames.
+
+ - elasticsearch
+ - localhost
+Is this correct [Y/n] 
+## Which IP addresses will be used to connect to your nodes?
+
+You did not enter any IP addresses.
+Is this correct [Y/n]
+## Other certificate options
+Key Name: elasticsearch
+Subject DN: CN=elasticsearch
+Key Size: 2048
+
+Do you wish to change any of these options? [y/N]y
+## What should your key be named?
+Key Name [elasticsearch] 
+## What subject DN should be used for your certificate?
+Subject DN [CN=elasticsearch] 
+## What key size should your certificate have?
+Key Size [2048] 1024
+Key Name: elasticsearch
+Subject DN: CN=elasticsearch
+Key Size: 1024
+
+Do you wish to change any of these options? [y/N]
+## What password do you want for your private key(s)?
+Provide a password for the "http.p12" file:  [<ENTER> for none]
+## Where should we save the generated files?
+What filename should be used for the output zip file? [/usr/share/elasticsearch/elasticsearch-ssl-http.zip] tls/elasticsearch-ssl-http.zip
 ```
 
 Extract the generated certificates:
