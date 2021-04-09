@@ -7,7 +7,8 @@ networks:
 services:
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
+    ##image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
+    image: systemteam-docker-prod-local.bahnhub.tech.rz.db.de/elastic-es:latest
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -15,10 +16,10 @@ services:
       - source: elastic_config
         target: /usr/share/elasticsearch/config/elasticsearch.yml
       # (!) TLS certificates. Generate using instructions from tls/README.md.
-      - source: elasticsearch_transport_cert
-        target: /usr/share/elasticsearch/config/elasticsearch.p12
-      - source: elasticsearch_http_cert
-        target: /usr/share/elasticsearch/config/http.p12
+      ##- source: elasticsearch_transport_cert
+      ##  target: /usr/share/elasticsearch/config/elasticsearch.p12
+      ##- source: elasticsearch_http_cert
+      ##  target: /usr/share/elasticsearch/config/http.p12
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       ELASTIC_PASSWORD: changeme
@@ -52,15 +53,16 @@ services:
       replicas: 1
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.11.2
+    ##image: docker.elastic.co/kibana/kibana:7.11.2
+    image: systemteam-docker-prod-local.bahnhub.tech.rz.db.de/elastic-kibana:latest
     ports:
       - "5601:5601"
     configs:
       - source: kibana_config
         target: /usr/share/kibana/config/kibana.yml
       # (!) CA certificate. Generate using instructions from tls/README.md.
-      - source: elasticsearch_ca_cert
-        target: /usr/share/kibana/config/elasticsearch-ca.pem
+      ##- source: elasticsearch_ca_cert
+      ##  target: /usr/share/kibana/config/elasticsearch-ca.pem
     deploy:
       mode: replicated
       replicas: 1

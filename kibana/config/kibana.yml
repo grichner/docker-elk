@@ -20,5 +20,5 @@ elasticsearch.password: changeme
 ## Communications between Kibana and Elasticsearch
 ## see https://www.elastic.co/guide/en/kibana/current/configuring-tls.html#configuring-tls-kib-es
 #
-elasticsearch.ssl.certificateAuthorities: [ "/usr/share/kibana/config/elasticsearch-ca.pem" ]
+elasticsearch.ssl.certificateAuthorities: [ "config/elasticsearch-ca.pem" ]
 xpack.encryptedSavedObjects.encryptionKey: '734f885b75875f40c5395b480dfda59d7534e3bf67fa205eb950f464'
